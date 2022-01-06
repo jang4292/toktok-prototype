@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">toktok</string>
+    <string name="naver_map_your_client_id_here">zrthn8561w</string>
 
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -10,4 +11,6 @@
     <string name="title_search">검색</string>
     <string name="title_favorite">즐겨찾기</string>
     <string name="title_info">내정보</string>
+
+    <string name="btn_map_my_location">내 위치</string>
 </resources>
