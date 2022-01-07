@@ -16,7 +16,6 @@ import com.example.toktok.databinding.FragmentStoreListBinding
 class StoreListFragment : Fragment() {
 
     private lateinit var mStoreListItem: ArrayList<StoreListItem>
-    private lateinit var listViewModel: ListViewModel
     private var _binding: FragmentStoreListBinding? = null
 
     // This property is only valid between onCreateView and
@@ -33,12 +32,6 @@ class StoreListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        listViewModel =
-            ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
-            ).get(ListViewModel::class.java)
-
         _binding = FragmentStoreListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
