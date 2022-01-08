@@ -9,6 +9,16 @@ import com.example.toktok.ui.list.StoreListItem
 
 class MyRecyclerAdapter : RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>() {
     private var mStoreListItem: ArrayList<StoreListItem>? = null
+
+    interface OnItemClickListener {
+        fun onItemClick(v: View, data: StoreListItem, pos: Int)
+    }
+
+    private var listener: OnItemClickListener? = null
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View =
             LayoutInflater.from(parent.context)
@@ -20,7 +30,7 @@ class MyRecyclerAdapter : RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>() {
         holder.onBind(mStoreListItem!![position])
     }
 
-    fun setFriendList(list: ArrayList<StoreListItem>?) {
+    fun setStoreList(list: ArrayList<StoreListItem>?) {
         mStoreListItem = list
         notifyDataSetChanged()
     }
@@ -29,29 +39,25 @@ class MyRecyclerAdapter : RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>() {
         return mStoreListItem!!.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var profile: ImageView
-        var store: TextView
-        var type: TextView
-        var location: TextView
-        var distance: TextView
-        var favorite: TextView
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private var profile: ImageView = view.findViewById(R.id.profile) as ImageView
+        private var store: TextView = view.findViewById(R.id.store_name_text) as TextView
+        private var type: TextView = view.findViewById(R.id.type_name_text) as TextView
+        private var location: TextView = view.findViewById(R.id.location_name_text) as TextView
+        private var distance: TextView = view.findViewById(R.id.distance_name_text) as TextView
+        private var favorite: TextView = view.findViewById(R.id.favorite_name_text) as TextView
         fun onBind(item: StoreListItem) {
+            val pos = adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                itemView.setOnClickListener { listener?.onItemClick(itemView, item, pos) }
+            }
+
             profile.setImageResource(item.resourceId)
             store.setText(item.store)
             type.setText(item.type)
             location.setText(item.location)
             distance.setText(item.distance)
             favorite.setText(item.favorite)
-        }
-
-        init {
-            profile = itemView.findViewById(R.id.profile) as ImageView
-            store = itemView.findViewById(R.id.store_name_text)
-            type = itemView.findViewById(R.id.type_name_text)
-            location = itemView.findViewById(R.id.location_name_text)
-            distance = itemView.findViewById(R.id.distance_name_text)
-            favorite = itemView.findViewById(R.id.favorite_name_text)
         }
     }
 }

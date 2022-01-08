@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.toktok.MainActivity
 import com.example.toktok.R
@@ -40,9 +40,15 @@ class StoreListFragment : Fragment() {
         /* initiate adapter */
         var mRecyclerAdapter = MyRecyclerAdapter()
 
+        mRecyclerAdapter.setOnItemClickListener(object : MyRecyclerAdapter.OnItemClickListener {
+            override fun onItemClick(v: View, data: StoreListItem, pos: Int) {
+                Toast.makeText(mainActivity, "Text pos : $pos", Toast.LENGTH_SHORT).show()
+            }
+        })
+
         /* initiate recyclerview */
-        mRecyclerView.setAdapter(mRecyclerAdapter)
-        mRecyclerView.setLayoutManager(LinearLayoutManager(mainActivity))
+        mRecyclerView.adapter = mRecyclerAdapter
+        mRecyclerView.layoutManager = LinearLayoutManager(mainActivity)
 
         /* adapt data */
         mStoreListItem = ArrayList()
@@ -68,7 +74,7 @@ class StoreListFragment : Fragment() {
                 )
             )
         }
-        mRecyclerAdapter.setFriendList(mStoreListItem)
+        mRecyclerAdapter.setStoreList(mStoreListItem)
         return root
     }
 
