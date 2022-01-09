@@ -23,4 +23,11 @@
 
     <string name="info_my_name">닉네임 / 이름</string>
     <string name="info_my_info">정보</string>
+
+    <string name="splash_confirm_btn">확인</string>
+    <string name="splash_title_text">원할한 톡톡 이용을 위해 필요한 권한입니다.</string>
+    <string name="splash_permission_necessary">필수권한</string>
+    <string name="splash_permission_necessary_current_location">현재 위치</string>
+    <string name="splash_permission_necessary_current_location_text">지도에서 사용자의 현재 위치를 찾기 위해 필요합니다.</string>
+
 </resources>
