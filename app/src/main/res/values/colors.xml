@@ -16,4 +16,10 @@
     <color name="item_describe_text_color">#FF1C1D1E</color>
     <color name="item_discount_text_color">#FF007EF2</color>
 
+    <color name="login_edit_text_hint_color">#FFCBCBCB</color>
+    <color name="login_button_text_color">#FFFFFFFF</color>
+    <color name="login_button_background_color">#FF007EF2</color>
+    <color name="sign_button_text_color">#FF007EF2</color>
+    <color name="sign_button_background_color">#FFFFFFFF</color>
+
 </resources>
