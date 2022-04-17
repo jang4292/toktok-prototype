@@ -54,6 +54,14 @@ dependencies {
     // 네이버 지도 SDK
     implementation 'com.naver.maps:map-sdk:3.12.0'
 
+    // 레트로핏
+    def retrofit_version = "2.8.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    // gson 컨버터
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    // 레트로핏 로깅 인터셉터
+    implementation "com.squareup.okhttp3:logging-interceptor:4.8.1"
+
     // 글라이드 이미지 라이브러리
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'

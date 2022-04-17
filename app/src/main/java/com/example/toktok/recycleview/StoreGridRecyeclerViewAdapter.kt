@@ -10,12 +10,12 @@ class StoreGridRecyeclerViewAdapter : RecyclerView.Adapter<StoreItemViewHolder>(
     private var storeList = ArrayList<Store>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreItemViewHolder {
-        val photoItemViewHolder = StoreItemViewHolder(
+        val storeItemViewHolder = StoreItemViewHolder(
             LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.layout_store_item, parent, false)
         )
-        return photoItemViewHolder
+        return storeItemViewHolder
     }
 
     override fun getItemCount(): Int {
@@ -28,7 +28,8 @@ class StoreGridRecyeclerViewAdapter : RecyclerView.Adapter<StoreItemViewHolder>(
     }
 
     // 외부에서 어답터에 데이터 배열을 넣어준다.
-    fun submitList(photoList: ArrayList<Store>) {
-        this.storeList = photoList
+    fun submitList(storeList: ArrayList<Store>) {
+        this.storeList = storeList
+        notifyDataSetChanged()
     }
 }

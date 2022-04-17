@@ -22,17 +22,27 @@ class StoreItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     // 데이터와 뷰를 묶는다.
     fun bindWithView(storeItem: Store) {
-        Log.d(TAG, "PhotoItemViewHolder - bindWithView() called")
+        Log.d(TAG, "StoreItemViewHolder - bindWithView() called")
 
         itemView.setOnClickListener {
 
         }
         val num = Random().nextInt(2)
         storeImageView.setImageResource(imageResources[num])
-        storeTitle.text = storeItem.title
-        storeType.text = storeItem.type
-        storeDescription.text = storeItem.description
-        storeDiscount.text = storeItem.discount
+
+
+        if (storeItem.title != null) {
+            storeTitle.text = storeItem.title
+        }
+        if (storeItem.type != null) {
+            storeType.text = storeItem.type
+        }
+        if (storeItem.description != null) {
+            storeDescription.text = storeItem.description
+        }
+        if (storeItem.discount != null) {
+            storeDiscount.text = storeItem.discount
+        }
     }
 
 

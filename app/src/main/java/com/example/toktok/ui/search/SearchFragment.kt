@@ -22,7 +22,6 @@ class SearchFragment : Fragment() {
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
-//        root.llButton0.setOnClick
         return root
     }
 
