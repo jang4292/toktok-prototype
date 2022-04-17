@@ -23,13 +23,10 @@ class StoreItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     // 데이터와 뷰를 묶는다.
     fun bindWithView(storeItem: Store) {
         Log.d(TAG, "StoreItemViewHolder - bindWithView() called")
-
-        itemView.setOnClickListener {
-
-        }
         val num = Random().nextInt(2)
         storeImageView.setImageResource(imageResources[num])
-
+        itemView.setTag(R.id.storeData, storeItem)
+        itemView.setTag(R.id.imageIndex, num)
 
         if (storeItem.title != null) {
             storeTitle.text = storeItem.title
@@ -46,17 +43,18 @@ class StoreItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
         var descriptionText = "";
         if (storeItem.location != null) {
-            descriptionText += storeItem.location
+            descriptionText += "${storeItem.location} "
         }
         if (storeItem.distance != null) {
-            descriptionText += storeItem.distance
+            descriptionText += "${storeItem.distance}m"
         }
         storeDescription.text = descriptionText
 
         if (storeItem.maxDiscount == storeItem.minDiscount) {
             storeDiscount.text = "${storeItem.minDiscount.toString()}% 할인"
         } else {
-            storeDiscount.text = "${storeItem.minDiscount.toString()} ~ ${storeItem.maxDiscount}% 할인"
+            storeDiscount.text =
+                "${storeItem.minDiscount.toString()} ~ ${storeItem.maxDiscount}% 할인"
         }
     }
 }

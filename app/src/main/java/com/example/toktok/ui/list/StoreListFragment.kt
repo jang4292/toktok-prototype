@@ -57,7 +57,7 @@ class StoreListFragment : Fragment() {
                 }
             }
         })
-        this.storeGridRecyeclerViewAdapter = StoreGridRecyeclerViewAdapter()
+        this.storeGridRecyeclerViewAdapter = StoreGridRecyeclerViewAdapter(context as MainActivity)
         root.my_store_recycler_view.layoutManager = GridLayoutManager(
             mainActivity as Context,
             2,
