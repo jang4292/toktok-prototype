@@ -35,15 +35,28 @@ class StoreItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             storeTitle.text = storeItem.title
         }
         if (storeItem.type != null) {
-            storeType.text = storeItem.type
+            when (storeItem.type) {
+                0 -> {
+                    storeType.text = "카페 / 디저트"
+                }
+                1 -> {
+                    storeType.text = "과일 / 생산품"
+                }
+            }
         }
-        if (storeItem.description != null) {
-            storeDescription.text = storeItem.description
+        var descriptionText = "";
+        if (storeItem.location != null) {
+            descriptionText += storeItem.location
         }
-        if (storeItem.discount != null) {
-            storeDiscount.text = storeItem.discount
+        if (storeItem.distance != null) {
+            descriptionText += storeItem.distance
+        }
+        storeDescription.text = descriptionText
+
+        if (storeItem.maxDiscount == storeItem.minDiscount) {
+            storeDiscount.text = "${storeItem.minDiscount.toString()}% 할인"
+        } else {
+            storeDiscount.text = "${storeItem.minDiscount.toString()} ~ ${storeItem.maxDiscount}% 할인"
         }
     }
-
-
 }

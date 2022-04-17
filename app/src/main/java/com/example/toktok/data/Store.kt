@@ -3,10 +3,11 @@ package com.example.toktok.data
 import java.io.Serializable
 
 data class Store(
-    var index: Int,
     var title: String?,
-    var type: String?,
-    var description: String?,
-    var discount: String?,
+    var type: Int?,
+    var distance: String?,
+    var maxDiscount: Int?,
+    var minDiscount: Int?,
+    var location: String?
 ) : Serializable {
 }

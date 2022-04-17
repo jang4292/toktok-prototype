@@ -47,17 +47,20 @@ class RetrofitManager {
                             if (results.size() > 0) {
                                 results.forEach { resultItem ->
                                     val resultItemObject = resultItem.asJsonObject
-                                    val index = resultItemObject.get("idx").asInt
-                                    val title: String = resultItemObject.get("name").asString
-                                    val type: String = resultItemObject.get("store_type").asString
+                                    val title: String = resultItemObject.get("title").asString
+                                    val type: Int = resultItemObject.get("store_type").asInt
                                     val distance: String = resultItemObject.get("distance").asString
+                                    val maxDiscount: Int = resultItemObject.get("maxDiscount").asInt
+                                    val minDiscount: Int = resultItemObject.get("minDiscount").asInt
+                                    val location: String = resultItemObject.get("location").asString
 
                                     val storeItem = Store(
-                                        index,
                                         title,
                                         type,
-                                        null,
-                                        distance
+                                        distance,
+                                        maxDiscount,
+                                        minDiscount,
+                                        location
                                     )
                                     parsedStoreDataArray.add(storeItem)
                                 }
