@@ -24,5 +24,8 @@
 
     <color name="limit_time_text">#FFF20D0D</color>
     <color name="text_title_detail">#FF1C1D1E</color>
+    <color name="text_sign_up_page">#FF1C1D1E</color>
+    <color name="text_sign_up_button_bg">#FF007EF2</color>
+    <color name="text_sign_up_edittext_hint">#FFCBCBCB</color>
 
 </resources>

@@ -7,11 +7,14 @@ object Constants {
 enum class RESPONSE_STATUS {
     OKAY,
     FAIL,
+    ERROR,
     NO_CONTENT
 }
 
 
 object API {
     const val BASE_URL: String = "http://yhjang1.shop:3000/"
-    const val GET_STORE_LIST : String = "storeList"
+    const val GET_STORE_LIST: String = "storeList"
+    const val POST_SIGN_UP: String = "users/register"
+    const val POST_SIGN_IN: String = "users/login"
 }

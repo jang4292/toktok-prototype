@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.toktok.utils.Constants.TAG
 import com.example.toktok.utils.isJsonArray
 import com.example.toktok.utils.isJsonObject
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
@@ -62,10 +63,12 @@ object RetrofitClient {
 
         if (retrofitClient == null) {
 
+            var gson = GsonBuilder().setLenient().create()
             // 레트로핏 빌더를 통해 인스턴스 생성
             retrofitClient = Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(NullOnEmptyConverterFactory())
+                .addConverterFactory(GsonConverterFactory.create(gson))
 
                 // 위에서 설정한 클라이언트로 레트로핏 클라이언트를 설정한다.
                 .client(client.build())
