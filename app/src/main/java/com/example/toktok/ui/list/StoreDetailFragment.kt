@@ -2,7 +2,6 @@ package com.example.toktok.ui.list
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import com.example.toktok.MainActivity
 import com.example.toktok.R
 import com.example.toktok.data.Store
 import com.example.toktok.databinding.FragmentStoreDetailBinding
-import com.example.toktok.utils.Constants.TAG
 import kotlinx.android.synthetic.main.fragment_store_detail.view.*
 
 class StoreDetailFragment : Fragment() {

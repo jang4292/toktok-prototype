@@ -46,7 +46,7 @@ class StoreGridRecyeclerViewAdapter constructor(private val activity: MainActivi
             val transaction = activity.supportFragmentManager.beginTransaction()
             val fragment = StoreDetailFragment();
             fragment.arguments = bundle
-            transaction.replace(R.id.nav_host_fragment_activity_main, fragment)
+            transaction.add(R.id.fl_fragment, fragment, "Detail")
             transaction.addToBackStack(null)
             transaction.commit()
         }
