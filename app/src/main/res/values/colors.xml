@@ -28,4 +28,8 @@
     <color name="text_sign_up_button_bg">#FF007EF2</color>
     <color name="text_sign_up_edittext_hint">#FFCBCBCB</color>
 
+    <color name ="text_color_bottom_navigation_normal">#FF1C1D1E</color>
+    <color name ="text_color_bottom_navigation_pressed">#FF007EF2</color>
+    <color name ="text_color_bottom_navigation_selected">#FF007EF2</color>
+
 </resources>
