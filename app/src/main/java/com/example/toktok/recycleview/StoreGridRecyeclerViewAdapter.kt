@@ -37,8 +37,7 @@ class StoreGridRecyeclerViewAdapter constructor(private val activity: MainActivi
             val data = it.getTag(R.id.storeData)
             val imageIndex = it.getTag(R.id.imageIndex)
 
-            val mainActivity = activity as MainActivity
-            mainActivity.showStoreDetailFragment(data as Store, imageIndex as Int);
+            activity.showStoreDetailFragment(data as Store, imageIndex as Int);
         }
     }
 

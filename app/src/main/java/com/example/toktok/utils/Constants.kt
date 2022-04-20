@@ -18,6 +18,11 @@ enum class NAVI_BOTTOM_TYPE {
     INFO
 }
 
+enum class VIEW_STATE {
+    HOME,
+    DETAIL
+}
+
 
 object API {
     const val BASE_URL: String = "http://yhjang1.shop:3000/"
