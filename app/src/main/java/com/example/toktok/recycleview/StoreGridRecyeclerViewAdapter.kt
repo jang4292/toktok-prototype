@@ -1,6 +1,5 @@
 package com.example.toktok.recycleview
 
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.toktok.MainActivity
 import com.example.toktok.R
 import com.example.toktok.data.Store
-import com.example.toktok.ui.list.StoreDetailFragment
 import com.example.toktok.utils.Constants.TAG
-import java.io.Serializable
 
 class StoreGridRecyeclerViewAdapter constructor(private val activity: MainActivity) :
     RecyclerView.Adapter<StoreItemViewHolder>() {
@@ -39,16 +36,9 @@ class StoreGridRecyeclerViewAdapter constructor(private val activity: MainActivi
 
             val data = it.getTag(R.id.storeData)
             val imageIndex = it.getTag(R.id.imageIndex)
-            val bundle = Bundle()
-            bundle.putSerializable("data", data as Serializable)
-            bundle.putInt("imageIndex", imageIndex as Int)
 
-            val transaction = activity.supportFragmentManager.beginTransaction()
-            val fragment = StoreDetailFragment();
-            fragment.arguments = bundle
-            transaction.add(R.id.fl_fragment, fragment, "Detail")
-            transaction.addToBackStack(null)
-            transaction.commit()
+            val mainActivity = activity as MainActivity
+            mainActivity.showStoreDetailFragment(data as Store, imageIndex as Int);
         }
     }
 

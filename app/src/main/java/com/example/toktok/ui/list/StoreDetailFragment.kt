@@ -10,7 +10,7 @@ import com.example.toktok.MainActivity
 import com.example.toktok.R
 import com.example.toktok.data.Store
 import com.example.toktok.databinding.FragmentStoreDetailBinding
-import kotlinx.android.synthetic.main.fragment_store_detail.view.*
+import kotlinx.android.synthetic.main.fragment_store_detail.*
 
 class StoreDetailFragment : Fragment() {
     private var _binding: FragmentStoreDetailBinding? = null
@@ -34,20 +34,20 @@ class StoreDetailFragment : Fragment() {
     ): View? {
         _binding = FragmentStoreDetailBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        return root
+    }
 
-        var storeItem = arguments?.getSerializable("data") as Store
-        var imageIndex = arguments?.getInt("imageIndex", 0) as Int
-
-        root.tv_actionbar_title.text = storeItem.title
-        root.iv_thumbnail.setImageResource(imageResources[imageIndex])
+    fun setData(storeItem: Store, imageIndex: Int) {
+        tv_actionbar_title.text = storeItem.title
+        iv_thumbnail.setImageResource(imageResources[imageIndex])
 
         if (storeItem.type != null) {
             when (storeItem.type) {
                 0 -> {
-                    root.tv_type.text = "카페 / 디저트"
+                    tv_type.text = "카페 / 디저트"
                 }
                 1 -> {
-                    root.tv_type.text = "과일 / 생산품"
+                    tv_type.text = "과일 / 생산품"
                 }
             }
         }
@@ -58,16 +58,14 @@ class StoreDetailFragment : Fragment() {
         if (storeItem.distance != null) {
             descriptionText += "${storeItem.distance}m"
         }
-        root.tv_description.text = descriptionText
+        tv_description.text = descriptionText
 
         if (storeItem.maxDiscount == storeItem.minDiscount) {
-            root.tv_discount.text = "${storeItem.minDiscount.toString()}% 할인"
+            tv_discount.text = "${storeItem.minDiscount.toString()}% 할인"
         } else {
-            root.tv_discount.text =
+            tv_discount.text =
                 "${storeItem.minDiscount.toString()} ~ ${storeItem.maxDiscount}% 할인"
         }
-
-        return root
     }
 
     override fun onDestroyView() {

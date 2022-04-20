@@ -11,6 +11,13 @@ enum class RESPONSE_STATUS {
     NO_CONTENT
 }
 
+enum class NAVI_BOTTOM_TYPE {
+    STORE,
+    MAP,
+    SEARCH,
+    INFO
+}
+
 
 object API {
     const val BASE_URL: String = "http://yhjang1.shop:3000/"
