@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.toktok.MainActivity
-import com.example.toktok.data.Store
 import com.example.toktok.databinding.FragmentMapBinding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -100,16 +99,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
 
         infoWindow.onClickListener = Overlay.OnClickListener { overlay ->
-            val storeDummyData = Store(
-                "테스트타이틀",
-                0,
-                "500",
-                30,
-                30,
-                "충무로"
-            )
-
-            mainActivity.showStoreDetailFragment(storeDummyData, 0)
             true
         }
 

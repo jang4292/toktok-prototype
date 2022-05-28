@@ -8,25 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.toktok.MainActivity
-import com.example.toktok.databinding.FragmentStoreListBinding
-import com.example.toktok.recycleview.StoreGridRecyeclerViewAdapter
+import com.example.toktok.databinding.FragmentProductListBinding
 import com.example.toktok.retrofit.RetrofitManager
-import com.example.toktok.utils.Constants.TAG
 import com.example.toktok.utils.RESPONSE_STATUS
-import kotlinx.android.synthetic.main.fragment_store_list.view.*
+import kotlinx.android.synthetic.main.fragment_product_list.view.*
 
-class StoreListFragment : Fragment() {
-    private var _binding: FragmentStoreListBinding? = null
+class ProductListFragment : Fragment(), ProductRecyclerviewInterface {
+    private var _binding: FragmentProductListBinding? = null
+
+    val TAG: String = "로그"
 
     // 어답터
-    private lateinit var storeGridRecyeclerViewAdapter: StoreGridRecyeclerViewAdapter
+    private lateinit var recyclerAdapter: ProductRecyclerAdapter
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
+
+    //    lateinit var context: MainActivity
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
@@ -37,14 +39,29 @@ class StoreListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentStoreListBinding.inflate(inflater, container, false)
+        _binding = FragmentProductListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        RetrofitManager.instance.getStoreList(onCompleteListener = { responseState, responseDataArrayList ->
+
+        Log.d(TAG, "MainActivity - onCreate() called")
+        // 어답터 인스턴스 생성
+        recyclerAdapter = ProductRecyclerAdapter(this)
+
+        // 리사이클러뷰 설정
+        root.product_recycler_view.apply {
+
+            // 리사이클러뷰 방향 등 설정
+            layoutManager = LinearLayoutManager(mainActivity, LinearLayoutManager.VERTICAL, false)
+
+            // 어답터 장착
+            adapter = recyclerAdapter
+        }
+
+        RetrofitManager.instance.getProductList(onCompleteListener = { responseState, responseDataArrayList ->
             when (responseState) {
                 RESPONSE_STATUS.OKAY -> {
                     Log.d(TAG, "api 호출 성공 : ${responseDataArrayList?.size}")
-                    this.storeGridRecyeclerViewAdapter.submitList(responseDataArrayList!!)
+                    this.recyclerAdapter.submitList(responseDataArrayList!!)
 
                 }
                 RESPONSE_STATUS.FAIL -> {
@@ -57,16 +74,11 @@ class StoreListFragment : Fragment() {
                 }
             }
         })
-        this.storeGridRecyeclerViewAdapter = StoreGridRecyeclerViewAdapter(context as MainActivity)
-        root.my_store_recycler_view.layoutManager = GridLayoutManager(
-            mainActivity as Context,
-            2,
-            GridLayoutManager.VERTICAL,
-            false
-        )
-        root.my_store_recycler_view.adapter = this.storeGridRecyeclerViewAdapter
-
         return root
+    }
+
+    override fun onItemClicked(position: Int) {
+        Log.d(TAG, "MainActivity - onItemClicked() called / position: $position")
     }
 
     override fun onDestroyView() {

@@ -1,7 +1,7 @@
 package com.example.toktok.retrofit
 
 import android.util.Log
-import com.example.toktok.data.Store
+import com.example.toktok.ui.list.ProductData
 import com.example.toktok.utils.API
 import com.example.toktok.utils.Constants.TAG
 import com.example.toktok.utils.RESPONSE_STATUS
@@ -17,10 +17,10 @@ class RetrofitManager {
 
     // 레트로핏 인터페이스 가져오기
     private val iRetrofit: IRetrofit? =
-        RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
+        RetrofitClient.getClient(API.BASE_URL_DEV)?.create(IRetrofit::class.java)
 
-    fun getStoreList(onCompleteListener: (RESPONSE_STATUS, ArrayList<Store>?) -> Unit) {
-        val call = iRetrofit?.getStoreList().let {
+    fun getProductList(onCompleteListener: (RESPONSE_STATUS, ArrayList<ProductData>?) -> Unit) {
+        val call = iRetrofit?.getProductList().let {
             it
         } ?: return
 
@@ -40,27 +40,34 @@ class RetrofitManager {
                         response.body()?.let {
                             Log.d(TAG, "data : ${it}")
 
-                            var parsedStoreDataArray = ArrayList<Store>()
+                            var parsedStoreDataArray = ArrayList<ProductData>()
                             val body = it.asJsonObject
                             val results = body.getAsJsonArray("data")
 
                             if (results.size() > 0) {
                                 results.forEach { resultItem ->
                                     val resultItemObject = resultItem.asJsonObject
-                                    val title: String = resultItemObject.get("title").asString
-                                    val type: Int = resultItemObject.get("store_type").asInt
-                                    val distance: String = resultItemObject.get("distance").asString
-                                    val maxDiscount: Int = resultItemObject.get("maxDiscount").asInt
-                                    val minDiscount: Int = resultItemObject.get("minDiscount").asInt
-                                    val location: String = resultItemObject.get("location").asString
 
-                                    val storeItem = Store(
-                                        title,
-                                        type,
-                                        distance,
-                                        maxDiscount,
-                                        minDiscount,
-                                        location
+                                    val idx = resultItemObject.get("idx").asInt
+                                    val sellerIdx = resultItemObject.get("seller_idx").asInt
+                                    val sellerName = resultItemObject.get("sellerName").asString
+                                    val name = resultItemObject.get("name").asString
+                                    val sellByDate = resultItemObject.get("sell_by_date").asString
+                                    val price = resultItemObject.get("price").asInt
+                                    val discountPrice = resultItemObject.get("discount_price").asInt
+                                    val discountRate = resultItemObject.get("discount_rate").asInt
+                                    val url = resultItemObject.get("url").asString
+
+                                    val storeItem = ProductData(
+                                        idx,
+                                        sellerIdx,
+                                        sellerName,
+                                        name,
+                                        sellByDate,
+                                        price,
+                                        discountPrice,
+                                        discountRate,
+                                        url
                                     )
                                     parsedStoreDataArray.add(storeItem)
                                 }

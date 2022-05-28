@@ -5,40 +5,34 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
-import com.example.toktok.data.Store
 import com.example.toktok.databinding.ActivityMainBinding
 import com.example.toktok.ui.info.InfoFragment
-import com.example.toktok.ui.list.StoreDetailFragment
-import com.example.toktok.ui.list.StoreListFragment
+import com.example.toktok.ui.list.ProductListFragment
 import com.example.toktok.ui.map.MapFragment
 import com.example.toktok.ui.search.SearchFragment
 import com.example.toktok.utils.NAVI_BOTTOM_TYPE
-import com.example.toktok.utils.VIEW_STATE
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var currentPosition: VIEW_STATE = VIEW_STATE.HOME
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        actionBar?.hide();
 
         supportFragmentManager.commit {
-            val store = StoreListFragment()
+            val productList = ProductListFragment()
             val map = MapFragment()
             val search = SearchFragment()
             val info = InfoFragment()
 
-            add(R.id.fl_fragment, store, "Store")
-            ll_btn_store.isSelected = true
+            add(R.id.fl_fragment, productList, "ProductList")
+            hide(productList)
             add(R.id.fl_fragment, map, "Map")
-            hide(map)
+            ll_btn_map.isSelected = true
             add(R.id.fl_fragment, search, "Search")
             hide(search)
             add(R.id.fl_fragment, info, "Info")
@@ -46,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         ll_btn_store.setOnClickListener {
-            onClickNaviBottomItem(NAVI_BOTTOM_TYPE.STORE)
+            onClickNaviBottomItem(NAVI_BOTTOM_TYPE.PRODUCT_LIST)
         }
         ll_btn_map.setOnClickListener {
             onClickNaviBottomItem(NAVI_BOTTOM_TYPE.MAP)
@@ -63,27 +57,24 @@ class MainActivity : AppCompatActivity() {
         val manager: FragmentManager = supportFragmentManager
         val ft: FragmentTransaction = manager.beginTransaction()
 
-        val store = manager.findFragmentByTag("Store")
+        val productList = manager.findFragmentByTag("ProductList")
         val map = manager.findFragmentByTag("Map")
         val search = manager.findFragmentByTag("Search")
         val info = manager.findFragmentByTag("Info")
-        val detail = manager.findFragmentByTag("Detail")
 
-        if (store != null) ft.hide(store)
+        if (productList != null) ft.hide(productList)
         if (map != null) ft.hide(map)
         if (search != null) ft.hide(search)
         if (info != null) ft.hide(info)
-        if (detail != null) ft.remove(detail)
 
-        currentPosition = VIEW_STATE.HOME
         ll_btn_store.isSelected = false
         ll_btn_map.isSelected = false
         ll_btn_search.isSelected = false
         ll_btn_info.isSelected = false
 
         when (type) {
-            NAVI_BOTTOM_TYPE.STORE -> {
-                if (store != null) ft.show(store)
+            NAVI_BOTTOM_TYPE.PRODUCT_LIST -> {
+                if (productList != null) ft.show(productList)
                 ll_btn_store.isSelected = true
             }
 
@@ -103,54 +94,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
         ft.commitAllowingStateLoss()
-    }
-
-    fun showStoreDetailFragment(data: Store, imageIndex: Int) {
-        currentPosition = VIEW_STATE.DETAIL
-        val manager: FragmentManager = supportFragmentManager
-        val ft: FragmentTransaction = manager.beginTransaction()
-
-        val store = manager.findFragmentByTag("Store")
-        val map = manager.findFragmentByTag("Map")
-        val search = manager.findFragmentByTag("Search")
-        val info = manager.findFragmentByTag("Info")
-
-        if (store != null) ft.hide(store)
-        if (map != null) ft.hide(map)
-        if (search != null) ft.hide(search)
-        if (info != null) ft.hide(info)
-
-        val bundle = Bundle()
-        bundle.putSerializable("data", data as Serializable)
-        bundle.putInt("imageIndex", imageIndex as Int)
-        val detail = StoreDetailFragment()
-        detail.arguments = bundle
-        ft.add(R.id.fl_fragment, detail, "Detail")
-        ft.commitAllowingStateLoss()
-    }
-
-    override fun onBackPressed() {
-
-        if (currentPosition == VIEW_STATE.DETAIL) {
-            when {
-                ll_btn_store.isSelected -> {
-                    onClickNaviBottomItem(NAVI_BOTTOM_TYPE.STORE)
-                }
-                ll_btn_map.isSelected -> {
-                    onClickNaviBottomItem(NAVI_BOTTOM_TYPE.MAP)
-                }
-                ll_btn_search.isSelected -> {
-                    onClickNaviBottomItem(NAVI_BOTTOM_TYPE.SEARCH)
-                }
-                ll_btn_info.isSelected -> {
-                    onClickNaviBottomItem(NAVI_BOTTOM_TYPE.INFO)
-                }
-                else -> {
-                    super.onBackPressed()
-                }
-            }
-        } else {
-            super.onBackPressed()
-        }
     }
 }

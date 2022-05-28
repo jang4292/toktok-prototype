@@ -13,8 +13,10 @@
 
         <ImageView
             android:id="@+id/profile"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:background="@color/black"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -29,16 +31,47 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
                     android:id="@+id/store_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="가게이름"
+                    android:text="캐비안베이커리 (30m)"
                     android:textColor="#000"
                     android:textSize="16dp" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <TextView
-                    android:id="@+id/store_name_text"
+                    android:id="@+id/sell_by_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#000"
+                    android:text="@string/product_list_item_text_sell_by_date"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/sell_by_date_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#444"
@@ -51,20 +84,21 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/type_name"
+                    android:id="@+id/origin_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="업종"
                     android:textColor="#000"
+                    android:text="@string/product_list_item_text_price"
                     android:textSize="16dp" />
 
                 <TextView
-                    android:id="@+id/type_name_text"
+                    android:id="@+id/origin_price_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#444"
                     android:textSize="12dp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -73,64 +107,21 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/location_name"
+                    android:id="@+id/discount_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="위치"
                     android:textColor="#000"
+                    android:text="@string/product_list_item_text_discounted_price"
                     android:textSize="16dp" />
 
                 <TextView
-                    android:id="@+id/location_name_text"
+                    android:id="@+id/discount_price_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#444"
                     android:textSize="12dp" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/distance_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="거리"
-                    android:textColor="#000"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/distance_name_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#444"
-                    android:textSize="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/favorite_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="즐겨찾기"
-                    android:textColor="#000"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/favorite_name_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#444"
-                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
 

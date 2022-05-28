@@ -9,8 +9,8 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface IRetrofit {
-    @GET(API.GET_STORE_LIST)
-    fun getStoreList(): Call<JsonElement>
+    @GET(API.GET_PRODUCT_LIST)
+    fun getProductList(): Call<JsonElement>
 
     @Headers("content-type: application/json")
     @POST(API.POST_SIGN_UP)

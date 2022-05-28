@@ -12,7 +12,7 @@ enum class RESPONSE_STATUS {
 }
 
 enum class NAVI_BOTTOM_TYPE {
-    STORE,
+    PRODUCT_LIST,
     MAP,
     SEARCH,
     INFO
@@ -26,7 +26,9 @@ enum class VIEW_STATE {
 
 object API {
     const val BASE_URL: String = "http://yhjang1.shop:3000/"
+    const val BASE_URL_DEV: String = "http://dev.itok-tok.com:3000/"
     const val GET_STORE_LIST: String = "storeList"
+    const val GET_PRODUCT_LIST: String = "product/list"
     const val POST_SIGN_UP: String = "users/register"
     const val POST_SIGN_IN: String = "users/login"
 }

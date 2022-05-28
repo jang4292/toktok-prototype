@@ -7,7 +7,7 @@
     <string name="title_notifications">Notifications</string>
 
     <string name="title_map">지도</string>
-    <string name="title_list">상점</string>
+    <string name="title_product">상품</string>
     <string name="title_search">검색</string>
     <string name="title_info">내정보</string>
     <string name="title_sign_up">회원가입</string>
@@ -34,4 +34,9 @@
     <string name="sign_up_account_label">계정 입력</string>
     <string name="sign_up_password_label">비밀번호 입력</string>
     <string name="sign_up_password_check_label">비밀번호 확인</string>
+
+    <string name="product_list_item_text_sell_by_date">유통기한</string>
+    <string name="product_list_item_text_price">정상가</string>
+    <string name="product_list_item_text_discounted_price">유통가</string>
+
 </resources>
