@@ -15,13 +15,14 @@ import com.example.toktok.retrofit.RetrofitManager
 import com.example.toktok.utils.RESPONSE_STATUS
 import kotlinx.android.synthetic.main.fragment_product_list.view.*
 
-class ProductListFragment : Fragment(), ProductRecyclerviewInterface {
+class ProductListFragment : Fragment(), ProductRecyclerviewInterface, FilterRecyclerviewInterface {
     private var _binding: FragmentProductListBinding? = null
 
     val TAG: String = "로그"
 
     // 어답터
     private lateinit var recyclerAdapter: ProductRecyclerAdapter
+    private lateinit var filterRecyclerAdapter: FilterRecyclerAdapter
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -56,6 +57,34 @@ class ProductListFragment : Fragment(), ProductRecyclerviewInterface {
             // 어답터 장착
             adapter = recyclerAdapter
         }
+
+        filterRecyclerAdapter = FilterRecyclerAdapter(this);
+
+        root.filter_recycler_view.apply {
+
+            // 리사이클러뷰 방향 등 설정
+            layoutManager = LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false)
+
+            // 어답터 장착
+            adapter = filterRecyclerAdapter
+        }
+
+        val stringArray: ArrayList<String> = arrayListOf(
+            "filter1",
+            "filter2",
+            "filter3",
+            "filter4",
+            "filter5",
+            "filter6",
+            "filter7",
+            "filter8",
+            "filter9",
+            "filter10",
+            "filter11",
+            "filter12"
+        )
+        filterRecyclerAdapter.submitList(stringArray!!)
+
 
         RetrofitManager.instance.getProductList(onCompleteListener = { responseState, responseDataArrayList ->
             when (responseState) {

@@ -11,7 +11,6 @@ class ProductRecyclerAdapter(productRecyclerviewInterface: ProductRecyclerviewIn
 
     val TAG: String = "로그"
 
-    //    private var modelList = ArrayList<MyModel>()
     private var productDataList = ArrayList<ProductData>()
 
     private var productRecyclerviewInterface: ProductRecyclerviewInterface? = null

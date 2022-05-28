@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.list.StoreListFragment1">
+    tools:context=".ui.list.ProductListFragment">
 
     <LinearLayout
         android:id="@+id/ll_top"
@@ -31,7 +31,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
-            android:src="@drawable/btn_filter_28" />
+            android:layout_marginRight="8dp"
+            android:src="@drawable/union" />
     </LinearLayout>
 
     <View
@@ -44,12 +45,22 @@
         app:layout_constraintTop_toBottomOf="@id/ll_top" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/filter_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:scrollbars="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/product_recycler_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_line" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_line" />
+        app:layout_constraintTop_toBottomOf="@id/filter_recycler_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
