@@ -44,7 +44,7 @@ class InfoFragment : Fragment() {
             val account = binding.etAccount
             val password = binding.etPassword
             val data = HashMap<String, String>()
-            data.put("name", account.text.toString())
+            data.put("login_id", account.text.toString())
             data.put("password", password.text.toString())
 
             RetrofitManager.instance.postSignIn(
@@ -76,7 +76,7 @@ class InfoFragment : Fragment() {
         }
 
 
-        root.btn_logout.setOnClickListener {
+        root.ll_btn_logout.setOnClickListener {
             with(sharedPref!!.edit()) {
                 putBoolean("isLogined", false)
                 apply()

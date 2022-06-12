@@ -27,7 +27,7 @@ class SignUpActivity : AppCompatActivity() {
                     val checkPassword = binding.etPasswordCheck
                     if (password.text.contentEquals(checkPassword.text)) {
                         val data = HashMap<String, String>()
-                        data.put("name", account.text.toString())
+                        data.put("login_id", account.text.toString())
                         data.put("password", password.text.toString())
 
                         RetrofitManager.instance.postSignUp(

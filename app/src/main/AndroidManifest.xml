@@ -43,10 +43,10 @@
             </intent-filter>
         </activity>
 
-<!--        <activity-->
-<!--            android:name=".ui.info.SignUpActivity"-->
-<!--            android:label="@string/app_name">-->
-<!--        </activity>-->
+        <activity
+            android:name=".ui.info.SignUpActivity"
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 </manifest>
