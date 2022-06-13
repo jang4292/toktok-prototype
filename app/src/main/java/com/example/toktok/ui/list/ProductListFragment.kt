@@ -6,10 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.toktok.MainActivity
+import com.example.toktok.R
 import com.example.toktok.databinding.FragmentProductListBinding
 import com.example.toktok.retrofit.RetrofitManager
 import com.example.toktok.utils.RESPONSE_STATUS
@@ -23,6 +25,8 @@ class ProductListFragment : Fragment(), ProductRecyclerviewInterface, FilterRecy
     // 어답터
     private lateinit var recyclerAdapter: ProductRecyclerAdapter
     private lateinit var filterRecyclerAdapter: FilterRecyclerAdapter
+
+    private lateinit var purchaseView: LinearLayout
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -85,7 +89,12 @@ class ProductListFragment : Fragment(), ProductRecyclerviewInterface, FilterRecy
         )
         filterRecyclerAdapter.submitList(stringArray!!)
 
+        refreshData()
 
+        return root
+    }
+
+    fun refreshData() {
         RetrofitManager.instance.getProductList(onCompleteListener = { responseState, responseDataArrayList ->
             when (responseState) {
                 RESPONSE_STATUS.OKAY -> {
@@ -103,15 +112,22 @@ class ProductListFragment : Fragment(), ProductRecyclerviewInterface, FilterRecy
                 }
             }
         })
-        return root
     }
 
     override fun onItemClicked(position: Int) {
         Log.d(TAG, "MainActivity - onItemClicked() called / position: $position")
+
+        val productData = this.recyclerAdapter.getItem(position)
+        this.purchaseView.setTag(R.id.ids_key_login_token, productData.idx)
+        this.purchaseView.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun setPurchasedView(layout: LinearLayout) {
+        this.purchaseView = layout
     }
 }

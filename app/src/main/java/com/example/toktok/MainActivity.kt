@@ -1,20 +1,25 @@
 package com.example.toktok
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.example.toktok.databinding.ActivityMainBinding
+import com.example.toktok.retrofit.RetrofitManager
 import com.example.toktok.ui.info.InfoFragment
 import com.example.toktok.ui.list.ProductListFragment
 import com.example.toktok.ui.map.MapFragment
 import com.example.toktok.ui.search.SearchFragment
 import com.example.toktok.utils.NAVI_BOTTOM_TYPE
+import com.example.toktok.utils.RESPONSE_STATUS
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var productList: ProductListFragment
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +28,40 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.ivClose.setOnClickListener {
+            binding.llPurchaseView.visibility = View.GONE
+        }
+
+        binding.btnPurchase.setOnClickListener {
+            val productId = binding.llPurchaseView.getTag(R.id.ids_key_login_token)
+
+            if (productId == 0) {
+                Toast.makeText(this, "개발중입니다", Toast.LENGTH_SHORT).show()
+            } else {
+                val data = HashMap<String, String>()
+                data.put("idx", productId.toString())
+
+                RetrofitManager.instance.postPurchaseProduct(
+                    data = data,
+                    onCompleteListener = { responseState ->
+                        when (responseState) {
+                            RESPONSE_STATUS.OKAY -> {
+                                binding.llPurchaseView.visibility = View.GONE
+                                productList.refreshData()
+                            }
+                            RESPONSE_STATUS.FAIL -> {
+
+                            }
+                        }
+                    })
+            }
+        }
+
         supportFragmentManager.commit {
-            val productList = ProductListFragment()
+            productList = ProductListFragment()
+            productList.setPurchasedView(binding.llPurchaseView)
             val map = MapFragment()
+            map.setPurchasedView(binding.llPurchaseView)
             val search = SearchFragment()
             val info = InfoFragment()
 

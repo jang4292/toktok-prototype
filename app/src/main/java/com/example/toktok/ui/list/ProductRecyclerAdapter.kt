@@ -49,4 +49,8 @@ class ProductRecyclerAdapter(productRecyclerviewInterface: ProductRecyclerviewIn
         this.productDataList = productDataList
         notifyDataSetChanged()
     }
+
+    fun getItem(index:Int): ProductData {
+        return this.productDataList[index]
+    }
 }

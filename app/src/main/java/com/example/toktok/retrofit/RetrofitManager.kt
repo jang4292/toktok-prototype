@@ -13,6 +13,7 @@ class RetrofitManager {
 
     companion object {
         val instance = RetrofitManager()
+        lateinit var loginTokenInfo: String
     }
 
     // 레트로핏 인터페이스 가져오기
@@ -109,8 +110,43 @@ class RetrofitManager {
         })
     }
 
-    fun postSignIn(data: HashMap<String, String>, onCompleteListener: (RESPONSE_STATUS) -> Unit) {
-        val call = iRetrofit?.postSiginIn(data).let {
+    fun postUserLogin(
+        data: HashMap<String, String>,
+        onCompleteListener: (RESPONSE_STATUS) -> Unit
+    ) {
+        val call = iRetrofit?.postUserLogin(data).let {
+            it
+        } ?: return
+
+        call.enqueue(object : retrofit2.Callback<JsonElement> {
+            // 응답 실패시
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                Log.d(TAG, "RetrofitManager - onFailure() called / t: $t")
+                onCompleteListener(RESPONSE_STATUS.FAIL)
+            }
+
+            // 응답 성공시
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                Log.d(TAG, "RetrofitManager - onResponse() called / response : ${response.body()}")
+                when (response.code()) {
+                    200 -> {
+                        loginTokenInfo =
+                            response.body()?.asJsonObject?.getAsJsonPrimitive("token")?.asString!!
+                        onCompleteListener(RESPONSE_STATUS.OKAY)
+                    }
+                    500 -> {
+                        onCompleteListener(RESPONSE_STATUS.ERROR)
+                    }
+                }
+            }
+        })
+    }
+
+    fun postPurchaseProduct(
+        data: HashMap<String, String>,
+        onCompleteListener: (RESPONSE_STATUS) -> Unit
+    ) {
+        val call = iRetrofit?.postPurchaseProduct(loginTokenInfo, data).let {
             it
         } ?: return
 

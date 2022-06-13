@@ -32,4 +32,10 @@
     <color name ="text_color_bottom_navigation_pressed">#FF007EF2</color>
     <color name ="text_color_bottom_navigation_selected">#FF007EF2</color>
 
+    <color name ="background_color_purchased_button">#FF007EF2</color>
+    <color name ="text_color_purchased_button">#FFFFFFFF</color>
+
+    <color name ="shape_background_color_my_bucket_button">#FFFFFFFF</color>
+    <color name ="shape_stroke_color_my_bucket_button">#FF007EF2</color>
+    <color name ="text_color_my_bucket_button">#FF007EF2</color>
 </resources>

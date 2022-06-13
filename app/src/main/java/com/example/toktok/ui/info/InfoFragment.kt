@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.toktok.MainActivity
 import com.example.toktok.databinding.FragmentInfoBinding
 import com.example.toktok.retrofit.RetrofitManager
+import com.example.toktok.retrofit.RetrofitManager.Companion.loginTokenInfo
 import com.example.toktok.utils.Constants.TAG
 import com.example.toktok.utils.RESPONSE_STATUS
 import kotlinx.android.synthetic.main.fragment_info.view.*
@@ -37,9 +38,11 @@ class InfoFragment : Fragment() {
         _binding = FragmentInfoBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-        val isLogined = sharedPref?.getBoolean("isLogined", false)
+        root.ll_login_view.visibility = View.VISIBLE
+        root.ll_info_view.visibility = View.GONE
 
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        loginTokenInfo = sharedPref?.getString("KEY_DATA_TOKEN", "").toString()
         root.sign_in.setOnClickListener {
             val account = binding.etAccount
             val password = binding.etPassword
@@ -47,7 +50,7 @@ class InfoFragment : Fragment() {
             data.put("login_id", account.text.toString())
             data.put("password", password.text.toString())
 
-            RetrofitManager.instance.postSignIn(
+            RetrofitManager.instance.postUserLogin(
                 data = data,
                 onCompleteListener = { responseState ->
                     when (responseState) {
@@ -55,7 +58,7 @@ class InfoFragment : Fragment() {
                             Log.d(TAG, "api 호출 성공 ")
 
                             with(sharedPref!!.edit()) {
-                                putBoolean("isLogined", true)
+                                putString("KEY_DATA_TOKEN", loginTokenInfo)
                                 apply()
                             }
 
@@ -75,24 +78,19 @@ class InfoFragment : Fragment() {
             }
         }
 
-
         root.ll_btn_logout.setOnClickListener {
-            with(sharedPref!!.edit()) {
-                putBoolean("isLogined", false)
-                apply()
-            }
+            loginTokenInfo = "";
             root.ll_login_view.visibility = View.VISIBLE
             root.ll_info_view.visibility = View.GONE
         }
 
-        if (!isLogined!!) {
+        if (loginTokenInfo == null || loginTokenInfo.length === 0) {
             root.ll_login_view.visibility = View.VISIBLE
             root.ll_info_view.visibility = View.GONE
         } else {
             root.ll_login_view.visibility = View.GONE
             root.ll_info_view.visibility = View.VISIBLE
         }
-
 
         return root
     }

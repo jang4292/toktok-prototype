@@ -29,6 +29,7 @@ object API {
     const val BASE_URL_DEV: String = "http://dev.itok-tok.com:3000/"
     const val GET_STORE_LIST: String = "storeList"
     const val GET_PRODUCT_LIST: String = "product/list"
+    const val POST_PURCHASE_PRODUCT: String = "product/purchased"
     const val POST_SIGN_UP: String = "users/register"
-    const val POST_SIGN_IN: String = "users/login"
+    const val POST_USER_LOGIN: String = "users/login"
 }

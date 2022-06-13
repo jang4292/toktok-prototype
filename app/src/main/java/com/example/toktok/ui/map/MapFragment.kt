@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.toktok.MainActivity
+import com.example.toktok.R
 import com.example.toktok.databinding.FragmentMapBinding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -31,6 +33,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private var mapView: MapView? = null
 
     lateinit var mainActivity: MainActivity
+
+    private lateinit var purchaseView: LinearLayout
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
@@ -99,6 +104,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
 
         infoWindow.onClickListener = Overlay.OnClickListener { overlay ->
+
+            this.purchaseView.setTag(R.id.ids_key_login_token, 0)
+            purchaseView.visibility = View.VISIBLE
             true
         }
 
@@ -125,5 +133,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         val cameraUpdate = CameraUpdate.scrollTo(LatLng(37.49880382249312, 127.03681573830634))
         naverMap.moveCamera(cameraUpdate)
+    }
+
+    fun setPurchasedView(layout: LinearLayout) {
+        this.purchaseView = layout
     }
 }

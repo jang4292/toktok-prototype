@@ -2,4 +2,5 @@
 <resources>
     <item name="storeData" type="id" />
     <item name="imageIndex" type="id" />
+    <item name="ids_key_login_token" type="id" />
 </resources>
