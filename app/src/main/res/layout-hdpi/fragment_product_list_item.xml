@@ -7,16 +7,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="20dp">
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="16dp">
 
         <ImageView
             android:id="@+id/profile"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="fitCenter"
-            android:background="@color/black"/>
+            android:background="@color/black"
+            android:scaleType="fitCenter" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -28,53 +30,54 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#000"
-                    android:textSize="16dp" />
+                    android:textColor="@color/item_title_text_color"
+                    android:textSize="14dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/store_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:text="캐비안베이커리 (30m)"
-                    android:textColor="#000"
-                    android:textSize="16dp" />
+                    android:textColor="@color/item_type_text_color"
+                    android:textSize="12dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/sell_by_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#000"
+                    android:layout_marginRight="12dp"
                     android:text="@string/product_list_item_text_sell_by_date"
-                    android:textSize="16dp" />
+                    android:textColor="@color/limit_time_text"
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/sell_by_date_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#444"
+                    android:textColor="@color/limit_time_text"
                     android:textSize="12dp" />
             </LinearLayout>
 
@@ -87,16 +90,16 @@
                     android:id="@+id/origin_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#000"
+                    android:layout_marginRight="22dp"
                     android:text="@string/product_list_item_text_price"
-                    android:textSize="16dp" />
+                    android:textColor="@color/item_type_text_color"
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/origin_price_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#444"
+                    android:textColor="@color/item_type_text_color"
                     android:textSize="12dp" />
 
             </LinearLayout>
@@ -110,17 +113,17 @@
                     android:id="@+id/discount_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#000"
+                    android:layout_marginRight="22dp"
                     android:text="@string/product_list_item_text_discounted_price"
-                    android:textSize="16dp" />
+                    android:textColor="@color/item_type_text_color"
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/discount_price_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#444"
-                    android:textSize="12dp" />
+                    android:textColor="@color/item_title_text_color"
+                    android:textSize="14dp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -132,6 +135,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginHorizontal="10dp"
-        android:background="#aaa" />
+        android:background="@color/main_devide_line_view_color" />
 
 </LinearLayout>

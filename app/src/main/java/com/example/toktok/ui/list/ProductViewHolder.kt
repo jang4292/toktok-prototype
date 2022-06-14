@@ -1,5 +1,6 @@
 package com.example.toktok.ui.list
 
+import android.graphics.Paint
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -39,7 +40,7 @@ class ProductViewHolder(
         Log.d(TAG, "MyViewHolder - bind() called")
 
         if (productName != null) {
-            productName.text = productData.name;
+            productName.text = productData.name
         }
 
         if (sellerName != null) {
@@ -47,15 +48,17 @@ class ProductViewHolder(
         }
 
         if (sellByDate != null) {
-            sellByDate.text = productData.sellByDate
+            val date = productData.sellByDate!!.split('T')[0].split('-')
+            sellByDate.text = date[0] + "." + date[1] + "." + date[2]
         }
 
         if (originPrice != null) {
-            originPrice.text = productData.price.toString()
+            originPrice.paintFlags = originPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            originPrice.text = productData.price.toString() + "원"
         }
 
         if (discountedPrice != null) {
-            discountedPrice.text = productData.discountPrice.toString()
+            discountedPrice.text = productData.discountPrice.toString() + "원"
         }
 
         Glide
