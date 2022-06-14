@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -49,6 +50,12 @@ class ProductListFragment : Fragment(), ProductRecyclerviewInterface, FilterRecy
 
 
         Log.d(TAG, "MainActivity - onCreate() called")
+
+        val items = arrayOf("정자동", "구로동", "서초동", "역삼동")
+        val myAdapter =
+            ArrayAdapter(mainActivity, R.layout.spinner_menu_item, items)
+        root.spinner.adapter = myAdapter
+
         // 어답터 인스턴스 생성
         recyclerAdapter = ProductRecyclerAdapter(this)
 
