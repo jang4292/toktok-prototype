@@ -100,6 +100,8 @@ class RetrofitManager {
                 Log.d(TAG, "RetrofitManager - onResponse() called / response : ${response.body()}")
                 when (response.code()) {
                     200 -> {
+                        loginTokenInfo =
+                            response.body()?.asJsonObject?.getAsJsonPrimitive("token")?.asString!!
                         onCompleteListener(RESPONSE_STATUS.OKAY)
                     }
                     500 -> {

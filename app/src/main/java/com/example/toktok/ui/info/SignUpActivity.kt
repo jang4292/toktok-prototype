@@ -36,7 +36,8 @@ class SignUpActivity : AppCompatActivity() {
                                 when (responseState) {
                                     RESPONSE_STATUS.OKAY -> {
                                         Log.d(Constants.TAG, "api 호출 성공 ")
-                                        finish();
+                                        setResult(RESULT_OK)
+                                        finish()
 
                                     }
                                     RESPONSE_STATUS.FAIL -> {
