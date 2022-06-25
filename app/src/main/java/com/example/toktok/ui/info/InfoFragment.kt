@@ -2,12 +2,15 @@ package com.example.toktok.ui.info
 
 import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.toktok.MainActivity
 import com.example.toktok.databinding.FragmentInfoBinding
@@ -42,7 +45,7 @@ class InfoFragment : Fragment() {
         root.ll_login_view.visibility = View.VISIBLE
         root.ll_info_view.visibility = View.GONE
 
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        val sharedPref = activity?.getSharedPreferences("KEY_DATA_TOKEN", Context.MODE_PRIVATE)
         loginTokenInfo = sharedPref?.getString("KEY_DATA_TOKEN", "").toString()
         root.sign_in.setOnClickListener {
             val account = binding.etAccount
@@ -80,8 +83,8 @@ class InfoFragment : Fragment() {
         root.ll_btn_logout.setOnClickListener {
             loginTokenInfo = "";
             with(sharedPref!!.edit()) {
-                putString("KEY_DATA_TOKEN", loginTokenInfo)
-                apply()
+                remove("KEY_DATA_TOKEN")
+                commit()
             }
             refreshView()
         }
@@ -109,7 +112,7 @@ class InfoFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode === REQUEST_CODE) {
             if (resultCode === RESULT_OK) {
-                val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+                val sharedPref = activity?.getSharedPreferences("KEY_DATA_TOKEN", Context.MODE_PRIVATE)
                 with(sharedPref!!.edit()) {
                     putString("KEY_DATA_TOKEN", loginTokenInfo)
                     apply()

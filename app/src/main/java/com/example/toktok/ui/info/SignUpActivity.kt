@@ -1,5 +1,7 @@
 package com.example.toktok.ui.info
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -27,8 +29,10 @@ class SignUpActivity : AppCompatActivity() {
                     val checkPassword = binding.etPasswordCheck
                     if (password.text.contentEquals(checkPassword.text)) {
                         val data = HashMap<String, String>()
-                        data.put("login_id", account.text.toString())
-                        data.put("password", password.text.toString())
+                        val id = account.text.toString()
+                        val pw = password.text.toString()
+                        data.put("login_id", id)
+                        data.put("password", pw)
 
                         RetrofitManager.instance.postSignUp(
                             data = data,
@@ -36,8 +40,11 @@ class SignUpActivity : AppCompatActivity() {
                                 when (responseState) {
                                     RESPONSE_STATUS.OKAY -> {
                                         Log.d(Constants.TAG, "api 호출 성공 ")
-                                        setResult(RESULT_OK)
-                                        finish()
+                                        val intent = Intent()
+                                        intent.putExtra("id", id)
+                                        intent.putExtra("pw", pw)
+                                        setResult(Activity.RESULT_OK, intent)
+                                        finish();
 
                                     }
                                     RESPONSE_STATUS.FAIL -> {
