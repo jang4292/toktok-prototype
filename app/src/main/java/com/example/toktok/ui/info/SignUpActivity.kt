@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.toktok.databinding.ActivitySignupBinding
 import com.example.toktok.retrofit.RetrofitManager
+import com.example.toktok.ui.CustomLoadingDialog
 import com.example.toktok.utils.Constants
 import com.example.toktok.utils.RESPONSE_STATUS
 
@@ -20,6 +21,9 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
+        val loadingDialog = CustomLoadingDialog(this)
+        loadingDialog.startLoadingProgress()
 
         binding.btnSignUp.setOnClickListener {
             val account = binding.etAccount
@@ -44,10 +48,12 @@ class SignUpActivity : AppCompatActivity() {
                                         intent.putExtra("id", id)
                                         intent.putExtra("pw", pw)
                                         setResult(Activity.RESULT_OK, intent)
-                                        finish();
+                                        loadingDialog.dismiss()
+                                        finish()
 
                                     }
                                     RESPONSE_STATUS.FAIL -> {
+                                        loadingDialog.dismiss()
                                         Toast.makeText(this, "존재하는 계정입니다.", Toast.LENGTH_SHORT)
                                             .show()
                                     }

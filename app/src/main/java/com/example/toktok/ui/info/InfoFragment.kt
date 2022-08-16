@@ -16,6 +16,7 @@ import com.example.toktok.MainActivity
 import com.example.toktok.databinding.FragmentInfoBinding
 import com.example.toktok.retrofit.RetrofitManager
 import com.example.toktok.retrofit.RetrofitManager.Companion.loginTokenInfo
+import com.example.toktok.ui.CustomLoadingDialog
 import com.example.toktok.utils.Constants.TAG
 import com.example.toktok.utils.RESPONSE_STATUS
 import kotlinx.android.synthetic.main.fragment_info.view.*
@@ -48,6 +49,9 @@ class InfoFragment : Fragment() {
         val sharedPref = activity?.getSharedPreferences("KEY_DATA_TOKEN", Context.MODE_PRIVATE)
         loginTokenInfo = sharedPref?.getString("KEY_DATA_TOKEN", "").toString()
         root.sign_in.setOnClickListener {
+            val loadingDialog = CustomLoadingDialog(mainActivity)
+            loadingDialog.startLoadingProgress()
+
             val account = binding.etAccount
             val password = binding.etPassword
             val data = HashMap<String, String>()
@@ -65,10 +69,12 @@ class InfoFragment : Fragment() {
                                 putString("KEY_DATA_TOKEN", loginTokenInfo)
                                 apply()
                             }
+
+                            loadingDialog.dismiss()
                             refreshView()
                         }
                         RESPONSE_STATUS.FAIL -> {
-
+                            loadingDialog.dismiss()
                         }
                     }
                 })
