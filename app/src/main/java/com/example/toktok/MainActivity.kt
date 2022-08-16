@@ -1,6 +1,7 @@
 package com.example.toktok
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.fragment.app.commit
 import com.example.toktok.databinding.ActivityMainBinding
 import com.example.toktok.retrofit.RetrofitManager
 import com.example.toktok.ui.info.InfoFragment
+import com.example.toktok.ui.info.SignInActivity
 import com.example.toktok.ui.list.ProductListFragment
 import com.example.toktok.ui.map.MapFragment
 import com.example.toktok.ui.search.SearchFragment
@@ -23,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val REQUEST_CODE = 3000
     private lateinit var productList: ProductListFragment
     private lateinit var binding: ActivityMainBinding
 
@@ -100,8 +103,13 @@ class MainActivity : AppCompatActivity() {
         ll_btn_search.setOnClickListener {
             onClickNaviBottomItem(NAVI_BOTTOM_TYPE.SEARCH)
         }
+        ll_btn_favorit.setOnClickListener {
+            Toast.makeText(this, "We are preparing", Toast.LENGTH_SHORT).show()
+        }
         ll_btn_info.setOnClickListener {
-            onClickNaviBottomItem(NAVI_BOTTOM_TYPE.INFO)
+//            onClickNaviBottomItem(NAVI_BOTTOM_TYPE.INFO)
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
         }
     }
 

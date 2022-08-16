@@ -38,4 +38,13 @@
     <color name ="shape_background_color_my_bucket_button">#FFFFFFFF</color>
     <color name ="shape_stroke_color_my_bucket_button">#FF007EF2</color>
     <color name ="text_color_my_bucket_button">#FF007EF2</color>
+
+    <color name ="shape_background_color_sign_in_button">#FFFFFFFF</color>
+    <color name ="shape_stroke_color_sign_in_button">#FF007EF2</color>
+
+    <color name ="shape_background_color_sign_up_button">#FFFFFFFF</color>
+    <color name ="shape_stroke_color_sign_up_button">#FF007EF2</color>
+
+    <color name ="hint_color_search_bar_enter_text">#FF959798</color>
+
 </resources>

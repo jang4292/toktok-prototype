@@ -83,6 +83,29 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_btn_favorit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:duplicateParentState="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_icon_favorit" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_favorit"
+                android:textColor="@drawable/selector_bottom_navigation_text_color" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/ll_btn_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -25,6 +25,7 @@ class ProductListFragment : Fragment(), ProductRecyclerviewInterface, FilterRecy
 
     // 어답터
     private lateinit var recyclerAdapter: ProductRecyclerAdapter
+    private lateinit var categoryRecyclerAdapter: CategoryRecyclerAdapter
     private lateinit var filterRecyclerAdapter: FilterRecyclerAdapter
 
     private lateinit var purchaseView: LinearLayout
@@ -69,6 +70,16 @@ class ProductListFragment : Fragment(), ProductRecyclerviewInterface, FilterRecy
             adapter = recyclerAdapter
         }
 
+        categoryRecyclerAdapter = CategoryRecyclerAdapter(this);
+
+        root.category_recycler_view.apply {
+
+            // 리사이클러뷰 방향 등 설정
+            layoutManager = LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false)
+
+            // 어답터 장착
+            adapter = categoryRecyclerAdapter
+        }
         filterRecyclerAdapter = FilterRecyclerAdapter(this);
 
         root.filter_recycler_view.apply {
@@ -80,21 +91,27 @@ class ProductListFragment : Fragment(), ProductRecyclerviewInterface, FilterRecy
             adapter = filterRecyclerAdapter
         }
 
-        val stringArray: ArrayList<String> = arrayListOf(
-            "filter1",
-            "filter2",
-            "filter3",
-            "filter4",
-            "filter5",
-            "filter6",
-            "filter7",
-            "filter8",
-            "filter9",
-            "filter10",
-            "filter11",
-            "filter12"
+        val categoryStringArray: ArrayList<String> = arrayListOf(
+            "카테고리1",
+            "카테고리2",
+            "카테고리3",
+            "카테고리4",
+            "카테고리5",
+            "카테고리6",
+            "카테고리7"
         )
-        filterRecyclerAdapter.submitList(stringArray!!)
+
+        val filterStringArray: ArrayList<String> = arrayListOf(
+            "필터01",
+            "필터02",
+            "필터03",
+            "필터04",
+            "필터05",
+            "필터06",
+            "필터07"
+        )
+        categoryRecyclerAdapter.submitList(categoryStringArray!!)
+        filterRecyclerAdapter.submitList(filterStringArray!!)
 
         refreshData()
 

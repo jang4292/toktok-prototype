@@ -2,23 +2,15 @@ package com.example.toktok.ui.info
 
 import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.toktok.MainActivity
 import com.example.toktok.databinding.FragmentInfoBinding
-import com.example.toktok.retrofit.RetrofitManager
 import com.example.toktok.retrofit.RetrofitManager.Companion.loginTokenInfo
-import com.example.toktok.ui.CustomLoadingDialog
-import com.example.toktok.utils.Constants.TAG
-import com.example.toktok.utils.RESPONSE_STATUS
 import kotlinx.android.synthetic.main.fragment_info.view.*
 
 class InfoFragment : Fragment() {
@@ -43,48 +35,48 @@ class InfoFragment : Fragment() {
         _binding = FragmentInfoBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        root.ll_login_view.visibility = View.VISIBLE
-        root.ll_info_view.visibility = View.GONE
+//        root.ll_login_view.visibility = View.VISIBLE
+//        root.ll_info_view.visibility = View.GONE
 
         val sharedPref = activity?.getSharedPreferences("KEY_DATA_TOKEN", Context.MODE_PRIVATE)
         loginTokenInfo = sharedPref?.getString("KEY_DATA_TOKEN", "").toString()
-        root.sign_in.setOnClickListener {
-            val loadingDialog = CustomLoadingDialog(mainActivity)
-            loadingDialog.startLoadingProgress()
-
-            val account = binding.etAccount
-            val password = binding.etPassword
-            val data = HashMap<String, String>()
-            data.put("login_id", account.text.toString())
-            data.put("password", password.text.toString())
-
-            RetrofitManager.instance.postUserLogin(
-                data = data,
-                onCompleteListener = { responseState ->
-                    when (responseState) {
-                        RESPONSE_STATUS.OKAY -> {
-                            Log.d(TAG, "api 호출 성공 ")
-
-                            with(sharedPref!!.edit()) {
-                                putString("KEY_DATA_TOKEN", loginTokenInfo)
-                                apply()
-                            }
-
-                            loadingDialog.dismiss()
-                            refreshView()
-                        }
-                        RESPONSE_STATUS.FAIL -> {
-                            loadingDialog.dismiss()
-                        }
-                    }
-                })
-        }
-        root.btn_sign_up.setOnClickListener {
-            activity?.let {
-                val intent = Intent(it, SignUpActivity::class.java)
-                startActivityForResult(intent, REQUEST_CODE)
-            }
-        }
+//        root.sign_in.setOnClickListener {
+//            val loadingDialog = CustomLoadingDialog(mainActivity)
+//            loadingDialog.startLoadingProgress()
+//
+//            val account = binding.etAccount
+//            val password = binding.etPassword
+//            val data = HashMap<String, String>()
+//            data.put("login_id", account.text.toString())
+//            data.put("password", password.text.toString())
+//
+//            RetrofitManager.instance.postUserLogin(
+//                data = data,
+//                onCompleteListener = { responseState ->
+//                    when (responseState) {
+//                        RESPONSE_STATUS.OKAY -> {
+//                            Log.d(TAG, "api 호출 성공 ")
+//
+//                            with(sharedPref!!.edit()) {
+//                                putString("KEY_DATA_TOKEN", loginTokenInfo)
+//                                apply()
+//                            }
+//
+//                            loadingDialog.dismiss()
+//                            refreshView()
+//                        }
+//                        RESPONSE_STATUS.FAIL -> {
+//                            loadingDialog.dismiss()
+//                        }
+//                    }
+//                })
+//        }
+//        root.btn_sign_up.setOnClickListener {
+//            activity?.let {
+//                val intent = Intent(it, SignUpActivity::class.java)
+//                startActivityForResult(intent, REQUEST_CODE)
+//            }
+//        }
 
         root.ll_btn_logout.setOnClickListener {
             loginTokenInfo = "";
@@ -92,10 +84,10 @@ class InfoFragment : Fragment() {
                 remove("KEY_DATA_TOKEN")
                 commit()
             }
-            refreshView()
+//            refreshView()
         }
 
-        refreshView()
+//        refreshView()
 
         return root
     }
@@ -123,20 +115,20 @@ class InfoFragment : Fragment() {
                     putString("KEY_DATA_TOKEN", loginTokenInfo)
                     apply()
                 }
-                refreshView()
+//                refreshView()
             }
         }
     }
 
-    private fun refreshView() {
-        if (loginTokenInfo == null || loginTokenInfo.length === 0) {
-            binding.root.ll_login_view.visibility = View.VISIBLE
-            binding.root.ll_info_view.visibility = View.GONE
-        } else {
-            binding.root.ll_login_view.visibility = View.GONE
-            binding.root.ll_info_view.visibility = View.VISIBLE
-        }
-    }
+//    private fun refreshView() {
+//        if (loginTokenInfo == null || loginTokenInfo.length === 0) {
+//            binding.root.ll_login_view.visibility = View.VISIBLE
+//            binding.root.ll_info_view.visibility = View.GONE
+//        } else {
+//            binding.root.ll_login_view.visibility = View.GONE
+//            binding.root.ll_info_view.visibility = View.VISIBLE
+//        }
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

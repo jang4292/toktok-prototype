@@ -9,28 +9,31 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:gravity="center_vertical"
+        android:maxHeight="152dp"
+        android:minHeight="152dp"
         android:orientation="horizontal"
-        android:paddingHorizontal="20dp"
-        android:paddingBottom="16dp">
+        android:paddingVertical="14.5dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="8dp">
 
         <ImageView
             android:id="@+id/profile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:background="@color/black"
             android:scaleType="fitCenter" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
+                android:layout_marginBottom="3dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -61,7 +64,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -78,12 +81,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/limit_time_text"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -107,6 +112,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -123,7 +129,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/item_title_text_color"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/storage_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dp"
+                    android:text="@string/product_list_item_text_discounted_price"
+                    android:textColor="@color/item_type_text_color"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/storage_count_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1개"
+                    android:textColor="@color/item_title_text_color"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </LinearLayout>
