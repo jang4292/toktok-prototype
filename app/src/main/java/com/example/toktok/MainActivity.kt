@@ -1,9 +1,13 @@
 package com.example.toktok
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.icu.text.IDNA
+import android.net.wifi.ScanResult
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +18,9 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.example.toktok.databinding.ActivityMainBinding
 import com.example.toktok.retrofit.RetrofitManager
+import com.example.toktok.retrofit.RetrofitManager.Companion.loginTokenInfo
 import com.example.toktok.ui.info.InfoFragment
+import com.example.toktok.ui.info.InfoFragment.OnItemClickListener
 import com.example.toktok.ui.info.SignInActivity
 import com.example.toktok.ui.list.ProductListFragment
 import com.example.toktok.ui.map.MapFragment
@@ -31,6 +37,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPref = getSharedPreferences("KEY_DATA_TOKEN", Context.MODE_PRIVATE)
+        loginTokenInfo = sharedPref?.getString("KEY_DATA_TOKEN", "").toString()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -84,6 +93,12 @@ class MainActivity : AppCompatActivity() {
             val search = SearchFragment()
             val info = InfoFragment()
 
+            info.setOnItemClickListener(object : OnItemClickListener {
+                override fun onClick(v: View) {
+                    onClickNaviBottomItem(NAVI_BOTTOM_TYPE.PRODUCT_LIST)
+                }
+            })
+
             add(R.id.fl_fragment, productList, "ProductList")
             hide(productList)
             add(R.id.fl_fragment, map, "Map")
@@ -107,9 +122,12 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "We are preparing", Toast.LENGTH_SHORT).show()
         }
         ll_btn_info.setOnClickListener {
-//            onClickNaviBottomItem(NAVI_BOTTOM_TYPE.INFO)
-            val intent = Intent(this, SignInActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE)
+            if (loginTokenInfo == null || loginTokenInfo.isEmpty()) {
+                val intent = Intent(this, SignInActivity::class.java)
+                startActivityForResult(intent, REQUEST_CODE)
+            } else {
+                onClickNaviBottomItem(NAVI_BOTTOM_TYPE.INFO)
+            }
         }
     }
 
@@ -154,5 +172,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
         ft.commitAllowingStateLoss()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode === REQUEST_CODE) {
+            if (resultCode === RESULT_OK) {
+                onClickNaviBottomItem(NAVI_BOTTOM_TYPE.INFO)
+            }
+        }
     }
 }

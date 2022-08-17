@@ -1,9 +1,15 @@
 package com.example.toktok.ui.info
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.toktok.databinding.ActivitySigninBinding
+import com.example.toktok.retrofit.RetrofitManager
 import com.example.toktok.ui.CustomLoadingDialog
+import com.example.toktok.utils.RESPONSE_STATUS
+import kotlinx.android.synthetic.main.activity_signin.*
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySigninBinding
@@ -14,6 +20,38 @@ class SignInActivity : AppCompatActivity() {
         binding = ActivitySigninBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
+        val loadingDialog = CustomLoadingDialog(this)
+
+        btn_sign_in.setOnClickListener {
+            loadingDialog.startLoadingProgress()
+
+            val account = binding.etAccount
+            val password = binding.etPassword
+            val data = HashMap<String, String>()
+            data.put("login_id", account.text.toString())
+            data.put("password", password.text.toString())
+
+            RetrofitManager.instance.postUserLogin(
+                data = data,
+                onCompleteListener = { responseState ->
+                    when (responseState) {
+                        RESPONSE_STATUS.OKAY -> {
+                            Log.d("TEST", "api 호출 성공 ")
+                            loadingDialog.dismiss()
+                            setResult(Activity.RESULT_OK)
+                            finish();
+                        }
+                        RESPONSE_STATUS.FAIL -> {
+                            loadingDialog.dismiss()
+                        }
+                    }
+                })
+        }
+
+        btn_sign_up.setOnClickListener {
+
+        }
 
 //        val loadingDialog = CustomLoadingDialog(this)
 //        loadingDialog.startLoadingProgress()
