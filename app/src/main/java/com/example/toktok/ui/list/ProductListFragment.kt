@@ -1,6 +1,7 @@
 package com.example.toktok.ui.list
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,8 @@ import com.example.toktok.MainActivity
 import com.example.toktok.R
 import com.example.toktok.databinding.FragmentProductListBinding
 import com.example.toktok.retrofit.RetrofitManager
+import com.example.toktok.ui.StoreDetailActivity
+import com.example.toktok.ui.info.SignInActivity
 import com.example.toktok.utils.RESPONSE_STATUS
 import kotlinx.android.synthetic.main.fragment_product_list.view.*
 
@@ -140,10 +143,17 @@ class ProductListFragment : Fragment(), ProductRecyclerviewInterface, FilterRecy
 
     override fun onItemClicked(position: Int) {
         Log.d(TAG, "MainActivity - onItemClicked() called / position: $position")
+        activity?.let {
+            val intent = Intent(it, StoreDetailActivity::class.java)
+            startActivity(intent)
+//                startActivityForResult(intent, REQUEST_CODE)
+        }
+//        val intent = mainActivity.intent(this, StoreDetailActivity::class.java)
 
-        val productData = this.recyclerAdapter.getItem(position)
-        this.purchaseView.setTag(R.id.ids_key_login_token, productData.idx)
-        this.purchaseView.visibility = View.VISIBLE
+
+//        val productData = this.recyclerAdapter.getItem(position)
+//        this.purchaseView.setTag(R.id.ids_key_login_token, productData.idx)
+//        this.purchaseView.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
@@ -151,7 +161,7 @@ class ProductListFragment : Fragment(), ProductRecyclerviewInterface, FilterRecy
         _binding = null
     }
 
-    fun setPurchasedView(layout: LinearLayout) {
-        this.purchaseView = layout
-    }
+//    fun setPurchasedView(layout: LinearLayout) {
+//        this.purchaseView = layout
+//    }
 }

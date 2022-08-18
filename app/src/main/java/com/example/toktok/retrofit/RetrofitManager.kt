@@ -1,6 +1,7 @@
 package com.example.toktok.retrofit
 
 import android.util.Log
+import android.widget.Toast
 import com.example.toktok.ui.list.ProductData
 import com.example.toktok.utils.API
 import com.example.toktok.utils.Constants.TAG
@@ -132,9 +133,18 @@ class RetrofitManager {
                 Log.d(TAG, "RetrofitManager - onResponse() called / response : ${response.body()}")
                 when (response.code()) {
                     200 -> {
-                        loginTokenInfo =
-                            response.body()?.asJsonObject?.getAsJsonPrimitive("token")?.asString!!
-                        onCompleteListener(RESPONSE_STATUS.OKAY)
+                        val result =
+                            response.body()?.asJsonObject?.getAsJsonPrimitive("result")?.asInt!!
+                        if (result < 0) {
+                            onCompleteListener(RESPONSE_STATUS.ERROR)
+                        } else {
+                            loginTokenInfo =
+                                response.body()?.asJsonObject?.getAsJsonPrimitive("token")?.asString!!
+                            onCompleteListener(RESPONSE_STATUS.OKAY)
+                        }
+                    }
+                    400 -> {
+                        onCompleteListener(RESPONSE_STATUS.ERROR)
                     }
                     500 -> {
                         onCompleteListener(RESPONSE_STATUS.ERROR)

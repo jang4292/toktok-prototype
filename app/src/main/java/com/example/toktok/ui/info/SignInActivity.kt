@@ -2,17 +2,22 @@ package com.example.toktok.ui.info
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.toktok.databinding.ActivitySigninBinding
 import com.example.toktok.retrofit.RetrofitManager
+import com.example.toktok.retrofit.RetrofitManager.Companion.loginTokenInfo
 import com.example.toktok.ui.CustomLoadingDialog
+import com.example.toktok.utils.NAVI_BOTTOM_TYPE
 import com.example.toktok.utils.RESPONSE_STATUS
 import kotlinx.android.synthetic.main.activity_signin.*
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySigninBinding
+    private val REQUEST_CODE = 4000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,72 +32,63 @@ class SignInActivity : AppCompatActivity() {
             loadingDialog.startLoadingProgress()
 
             val account = binding.etAccount
-            val password = binding.etPassword
-            val data = HashMap<String, String>()
-            data.put("login_id", account.text.toString())
-            data.put("password", password.text.toString())
+            if (account.length() < 8 || account.length() > 15) {
+                loadingDialog.dismiss()
+                Toast.makeText(this, "ID 확인해주세요 길이 : " + account.length(), Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                val password = binding.etPassword
+                val data = HashMap<String, String>()
+                data.put("login_id", account.text.toString())
+                data.put("password", password.text.toString())
 
-            RetrofitManager.instance.postUserLogin(
-                data = data,
-                onCompleteListener = { responseState ->
-                    when (responseState) {
-                        RESPONSE_STATUS.OKAY -> {
-                            Log.d("TEST", "api 호출 성공 ")
-                            loadingDialog.dismiss()
-                            setResult(Activity.RESULT_OK)
-                            finish();
+                RetrofitManager.instance.postUserLogin(
+                    data = data,
+                    onCompleteListener = { responseState ->
+                        when (responseState) {
+                            RESPONSE_STATUS.OKAY -> {
+                                Log.d("TEST", "api 호출 성공 ")
+                                val sharedPref = getSharedPreferences("KEY_DATA_TOKEN", Context.MODE_PRIVATE)
+                                with(sharedPref!!.edit()) {
+                                    putString("KEY_DATA_TOKEN", loginTokenInfo)
+                                    apply()
+                                }
+
+                                loadingDialog.dismiss()
+                                setResult(Activity.RESULT_OK)
+                                finish()
+                            }
+                            RESPONSE_STATUS.FAIL -> {
+                                Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show()
+                                loadingDialog.dismiss()
+                            }
+                            RESPONSE_STATUS.ERROR -> {
+                                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                                loadingDialog.dismiss()
+                            }
                         }
-                        RESPONSE_STATUS.FAIL -> {
-                            loadingDialog.dismiss()
-                        }
-                    }
-                })
+                    })
+            }
         }
 
         btn_sign_up.setOnClickListener {
-
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
         }
+    }
 
-//        val loadingDialog = CustomLoadingDialog(this)
-//        loadingDialog.startLoadingProgress()
-
-//        binding.btnSignUp.setOnClickListener {
-//            val account = binding.etAccount
-//            if (account.length() > 8) {
-//                val password = binding.etPassword
-//                if (password.length() > 8) {
-//                    val checkPassword = binding.etPasswordCheck
-//                    if (password.text.contentEquals(checkPassword.text)) {
-//                        val data = HashMap<String, String>()
-//                        val id = account.text.toString()
-//                        val pw = password.text.toString()
-//                        data.put("login_id", id)
-//                        data.put("password", pw)
-//
-//                        RetrofitManager.instance.postSignUp(
-//                            data = data,
-//                            onCompleteListener = { responseState ->
-//                                when (responseState) {
-//                                    RESPONSE_STATUS.OKAY -> {
-//                                        Log.d(Constants.TAG, "api 호출 성공 ")
-//                                        val intent = Intent()
-//                                        intent.putExtra("id", id)
-//                                        intent.putExtra("pw", pw)
-//                                        setResult(Activity.RESULT_OK, intent)
-//                                        loadingDialog.dismiss()
-//                                        finish()
-//
-//                                    }
-//                                    RESPONSE_STATUS.FAIL -> {
-//                                        loadingDialog.dismiss()
-//                                        Toast.makeText(this, "존재하는 계정입니다.", Toast.LENGTH_SHORT)
-//                                            .show()
-//                                    }
-//                                }
-//                            })
-//                    }
-//                }
-//            }
-//        }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode === REQUEST_CODE) {
+            if (resultCode === RESULT_OK) {
+                val sharedPref = getSharedPreferences("KEY_DATA_TOKEN", Context.MODE_PRIVATE)
+                with(sharedPref!!.edit()) {
+                    putString("KEY_DATA_TOKEN", loginTokenInfo)
+                    apply()
+                }
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+        }
     }
 }

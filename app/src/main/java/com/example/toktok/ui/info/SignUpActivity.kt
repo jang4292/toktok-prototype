@@ -22,10 +22,9 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val loadingDialog = CustomLoadingDialog(this)
-        loadingDialog.startLoadingProgress()
-
         binding.btnSignUp.setOnClickListener {
+            val loadingDialog = CustomLoadingDialog(this)
+            loadingDialog.startLoadingProgress()
             val account = binding.etAccount
             if (account.length() > 8) {
                 val password = binding.etPassword
@@ -44,10 +43,7 @@ class SignUpActivity : AppCompatActivity() {
                                 when (responseState) {
                                     RESPONSE_STATUS.OKAY -> {
                                         Log.d(Constants.TAG, "api 호출 성공 ")
-                                        val intent = Intent()
-                                        intent.putExtra("id", id)
-                                        intent.putExtra("pw", pw)
-                                        setResult(Activity.RESULT_OK, intent)
+                                        setResult(Activity.RESULT_OK)
                                         loadingDialog.dismiss()
                                         finish()
 
@@ -59,8 +55,14 @@ class SignUpActivity : AppCompatActivity() {
                                     }
                                 }
                             })
+                    } else {
+                        loadingDialog.dismiss()
                     }
+                } else {
+                    loadingDialog.dismiss()
                 }
+            } else {
+                loadingDialog.dismiss()
             }
         }
     }

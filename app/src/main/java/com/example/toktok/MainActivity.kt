@@ -87,9 +87,9 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.commit {
             productList = ProductListFragment()
-            productList.setPurchasedView(binding.llPurchaseView)
+//            productList.setPurchasedView(binding.llPurchaseView)
             val map = MapFragment()
-            map.setPurchasedView(binding.llPurchaseView)
+//            map.setPurchasedView(binding.llPurchaseView)
             val search = SearchFragment()
             val info = InfoFragment()
 
